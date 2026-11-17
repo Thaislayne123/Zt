@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<!-- =====================================================================
+     VERSÃO SOMENTE HTML + CSS (sem JavaScript)
+     - HTML: estrutura da página (menu, textos, imagens, formulários)
+     - CSS: aparência (cores em tons de verde, títulos em negrito)
+     Como usar: salve como .html e abra no navegador (dois cliques).
+     ===================================================================== -->
+<html lang="pt-BR">
+<head>
+  <!-- Configurações básicas: acentos, ajuste ao celular e nome da aba -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zoo Verde Brasil</title>
+  <!-- Fonte dos títulos e do texto (Google Fonts). Se não carregar, o navegador usa uma fonte comum. -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Nunito+Sans:wght@400;600;700&display=swap">
+
+  <style>
+    /* =================================================================
+       CSS: define a aparência. Todas as cores são tons de verde.
+       As cores ficam em "variáveis" (--nome): troque aqui e muda no site todo.
+       ================================================================= */
+    :root {
+      --bg: #f1f7f1;       /* fundo da página */
+      --surface: #ffffff;  /* fundo dos cartões */
+      --soft: #dcebdc;     /* verde suave para destaques */
+      --line: #b9d3bb;    /* bordas */
+      --mid: #3f9a5a;      /* verde médio */
+      --deep: #1f6b3a;     /* verde escuro: botões */
+      --forest: #0f3d22;   /* verde floresta: títulos e rodapé */
+      --fg: #12301e;       /* texto comum */
+      --font-title: "Bricolage Grotesque", "Arial Black", sans-serif;
+      --font-body: "Nunito Sans", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }  /* rolagem suave ao clicar no menu */
+    body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 17px; line-height: 1.6; }
+    p { margin: 0; }
+
+    /* Títulos em NEGRITO */
+    h1, h2, h3 { font-family: var(--font-title); font-weight: 800; color: var(--forest); line-height: 1.12; margin: 0; }
+    h1 { font-size: clamp(2.1rem, 6vw, 3.6rem); }
+    h2 { font-size: clamp(1.7rem, 4vw, 2.3rem); }
+    h3 { font-size: 1.25rem; }
+
+    /* .wrap centraliza o conteúdo e deixa margem nas laterais */
+    .wrap { max-width: 1060px; margin: 0 auto; padding: 0 16px; }
+    section { padding: 56px 0; }
+    .lead { max-width: 62ch; color: var(--deep); margin-top: 12px; }
+    .stack { display: grid; gap: 18px; }
+
+    /* Menu no topo, fixo ao rolar */
+    header { background: var(--forest); position: sticky; top: 0; z-index: 10; }
+    .nav { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 20px; padding: 12px 16px; }
+    .logo { font-family: var(--font-title); font-weight: 800; font-size: 1.25rem; color: #e6f6ea; text-decoration: none; }
+    .nav ul { display: flex; flex-wrap: wrap; gap: 4px 18px; list-style: none; margin: 0; padding: 0; }
+    .nav a { color: #cfe9d6; text-decoration: none; font-weight: 600; font-size: .95rem; }
+    .nav a:hover { color: #fff; text-decoration: underline; }
+
+    /* Botões */
+    .btn { display: inline-block; border: 0; cursor: pointer; font: inherit; font-weight: 700; padding: 12px 22px; border-radius: 10px; background: var(--deep); color: #f1f7f1; text-decoration: none; }
+    .btn:hover { background: var(--mid); }
+    .btn.alt { background: var(--soft); color: var(--forest); border: 1px solid var(--line); }
+    .cta { display: flex; flex-wrap: wrap; gap: 12px; }
+
+    /* Seção principal */
+    .hero { background: var(--soft); border-bottom: 1px solid var(--line); }
+    .hero .wrap { display: grid; grid-template-columns: 1.15fr .85fr; gap: 36px; align-items: center; }
+    .hero-art { background: var(--deep); border-radius: 28px; padding: 18px; }
+    svg { display: block; width: 100%; height: auto; }
+
+    /* Cartões de serviços e caixa de preço */
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-top: 28px; }
+    .card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 22px; display: grid; gap: 8px; align-content: start; }
+    .price { background: var(--forest); color: #e6f6ea; border-radius: 20px; padding: 28px; display: grid; gap: 6px; margin-top: 28px; }
+    .price h3 { color: #e6f6ea; }
+    .price .big { font-family: var(--font-title); font-weight: 800; font-size: clamp(2.4rem, 7vw, 3.6rem); color: #a8e6ba; line-height: 1; }
+
+    /* Galeria de animais */
+    .animals { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; margin-top: 28px; }
+    .animal { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+    .animal .pic { background: var(--soft); padding: 14px; }
+    .animal figcaption { padding: 14px 18px 18px; display: grid; gap: 4px; }
+
+    /* Formulários */
+    .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 24px; margin-top: 28px; display: grid; gap: 22px; }
+    form { display: grid; gap: 16px; }
+    .row { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; }
+    .field { display: grid; gap: 6px; }
+    label { font-weight: 700; color: var(--forest); font-size: .95rem; }
+    input, select { font: inherit; color: var(--fg); background: var(--bg); border: 1.5px solid var(--line); border-radius: 10px; padding: 11px 12px; width: 100%; }
+    input:focus, select:focus, .btn:focus, a:focus { outline: 3px solid var(--mid); outline-offset: 2px; }
+    .hint { font-size: .9rem; color: var(--deep); }
+    .busca { background: var(--soft); border: 1px solid var(--line); border-radius: 14px; padding: 18px; }
+
+    /* Tabela de preços (substitui o cálculo automático) */
+    .tabela { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+    .tabela th, .tabela td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line); }
+    .tabela th { color: var(--forest); font-weight: 800; }
+
+    footer { background: var(--forest); color: #cfe9d6; padding: 36px 0; font-size: .95rem; }
+    footer h3 { color: #e6f6ea; margin-bottom: 6px; }
+
+    /* Celular: a seção principal vira uma coluna só */
+    @media (max-width: 760px) { .hero .wrap { grid-template-columns: 1fr; } section { padding: 40px 0; } }
+  </style>
+</head>
+
+<body>
+  <!-- ===================== MENU ===================== -->
+  <!-- Cada href="#nome" leva até a seção que tem id="nome" -->
+  <header>
+    <nav class="nav" aria-label="Menu principal">
+      <a class="logo" href="#inicio">Zoo Verde Brasil</a>
+      <ul>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#animais">Animais</a></li>
+        <li><a href="#buscar">Encontrar perto de mim</a></li>
+        <li><a href="#agendar">Agendar visita</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ===================== SEÇÃO PRINCIPAL ===================== -->
+    <section class="hero" id="inicio">
+      <div class="wrap">
+        <div class="stack">
+          <h1>Agende sua visita ao zoológico em qualquer lugar do Brasil</h1>
+          <p class="lead">Escolha a cidade, o dia e quantas pessoas vão. O ingresso custa <strong>R$ 30,00 por pessoa</strong>, o mesmo valor em todas as unidades do país. Você também pode achar o zoológico ou a loja de animais mais próximo pelo Google Maps.</p>
+          <div class="cta">
+            <a class="btn" href="#agendar">Agendar agora</a>
+            <a class="btn alt" href="#buscar">Achar o mais próximo</a>
+          </div>
+        </div>
+        <!-- Imagem em SVG (desenho feito com código): onça-pintada -->
+        <div class="hero-art" role="img" aria-label="Desenho de uma onça-pintada">
+          <svg viewBox="0 0 200 180" aria-hidden="true">
+            <circle cx="42" cy="46" r="20" fill="#e0a43a"/><circle cx="42" cy="46" r="10" fill="#7a4a12"/>
+            <circle cx="158" cy="46" r="20" fill="#e0a43a"/><circle cx="158" cy="46" r="10" fill="#7a4a12"/>
+            <circle cx="100" cy="92" r="68" fill="#eab84f"/>
+            <g fill="#4a2c08"><circle cx="62" cy="52" r="5"/><circle cx="78" cy="38" r="4"/><circle cx="122" cy="38" r="4"/><circle cx="138" cy="52" r="5"/><circle cx="46" cy="90" r="5"/><circle cx="154" cy="90" r="5"/><circle cx="58" cy="122" r="4"/><circle cx="142" cy="122" r="4"/></g>
+            <ellipse cx="100" cy="118" rx="30" ry="24" fill="#f7e6bd"/>
+            <ellipse cx="78" cy="84" rx="11" ry="12" fill="#fff"/><ellipse cx="122" cy="84" rx="11" ry="12" fill="#fff"/>
+            <circle cx="80" cy="86" r="7" fill="#2f6b2f"/><circle cx="120" cy="86" r="7" fill="#2f6b2f"/>
+            <circle cx="82" cy="86" r="3.5" fill="#0b1a0b"/><circle cx="118" cy="86" r="3.5" fill="#0b1a0b"/>
+            <path d="M90 108h20l-10 11z" fill="#4a2c08"/>
+            <path d="M100 119v8m0 0q-8 8-16 2m16-2q8 8 16 2" stroke="#4a2c08" stroke-width="3" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SERVIÇOS ===================== -->
+    <section id="servicos">
+      <div class="wrap">
+        <h2>Nossos serviços</h2>
+        <p class="lead">Todas as unidades seguem o mesmo padrão de atendimento. Você agenda pelo site e chega no horário escolhido.</p>
+        <div class="grid">
+          <article class="card"><h3>Visita guiada</h3><p>Percurso a pé com monitor, passando pelos recintos de mamíferos, aves e répteis. Dura cerca de 2 horas.</p></article>
+          <article class="card"><h3>Alimentação dos animais</h3><p>Horários fixos em que os tratadores explicam a dieta de cada espécie e respondem às perguntas do público.</p></article>
+          <article class="card"><h3>Educação ambiental</h3><p>Atividades para escolas e famílias sobre fauna brasileira, conservação e cuidado com o meio ambiente.</p></article>
+          <article class="card"><h3>Área de descanso</h3><p>Trilhas sombreadas, bancos, bebedouros, lanchonete e banheiros com acessibilidade em todas as unidades.</p></article>
+        </div>
+        <div class="price">
+          <h3>Valor do ingresso</h3>
+          <p class="big">R$ 30,00</p>
+          <p>por pessoa, com preço fixo para todo o Brasil. O valor é o mesmo em qualquer cidade e qualquer dia da semana.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== ANIMAIS (imagens SVG) ===================== -->
+    <section id="animais" style="background: var(--soft)">
+      <div class="wrap">
+        <h2>Quem você vai encontrar</h2>
+        <p class="lead">Uma amostra dos animais que moram nas nossas unidades.</p>
+        <div class="animals">
+
+          <figure class="animal">
+            <div class="pic" role="img" aria-label="Desenho de um tucano">
+              <svg viewBox="0 0 200 160" aria-hidden="true">
+                <rect x="88" y="120" width="6" height="30" fill="#6b4a22"/><rect x="60" y="148" width="100" height="8" rx="4" fill="#6b4a22"/>
+                <ellipse cx="90" cy="82" rx="38" ry="48" fill="#17261d"/>
+                <ellipse cx="96" cy="96" rx="22" ry="30" fill="#f5f0dc"/>
+                <circle cx="92" cy="52" r="26" fill="#17261d"/>
+                <circle cx="100" cy="46" r="11" fill="#7ec8e3"/><circle cx="102" cy="46" r="5" fill="#000"/><circle cx="104" cy="44" r="1.6" fill="#fff"/>
+                <path d="M108 44c40-6 72 6 76 24-4 18-36 22-76 8z" fill="#f08a1c"/>
+                <path d="M108 52c36-2 62 4 72 14-24 6-52 6-72-2z" fill="#f6c244"/>
+                <path d="M176 60q8 6 0 14" stroke="#17261d" stroke-width="4" fill="none"/>
+              </svg>
+            </div>
+            <figcaption><h3>Tucano</h3><p>Ave símbolo da fauna brasileira, conhecida pelo bico colorido.</p></figcaption>
+          </figure>
+
+          <figure class="animal">
+            <div class="pic" role="img" aria-label="Desenho de uma girafa">
+              <svg viewBox="0 0 200 160" aria-hidden="true">
+                <rect x="86" y="58" width="30" height="100" rx="8" fill="#e5b24a"/>
+                <ellipse cx="100" cy="30" rx="30" ry="20" fill="#e5b24a"/>
+                <ellipse cx="124" cy="36" rx="22" ry="14" fill="#f2d28a"/>
+                <rect x="80" y="2" width="5" height="16" fill="#7a4a12"/><circle cx="82" cy="2" r="5" fill="#7a4a12"/>
+                <rect x="100" y="2" width="5" height="16" fill="#7a4a12"/><circle cx="102" cy="2" r="5" fill="#7a4a12"/>
+                <ellipse cx="72" cy="26" rx="10" ry="6" fill="#c98f2c"/>
+                <circle cx="104" cy="28" r="4" fill="#1b1206"/>
+                <circle cx="128" cy="36" r="2.2" fill="#7a4a12"/><circle cx="136" cy="34" r="2.2" fill="#7a4a12"/>
+                <g fill="#8a5517"><ellipse cx="96" cy="74" rx="7" ry="9"/><ellipse cx="108" cy="96" rx="7" ry="9"/><ellipse cx="94" cy="116" rx="7" ry="9"/><ellipse cx="108" cy="136" rx="7" ry="9"/><ellipse cx="90" cy="92" rx="4" ry="5"/></g>
+              </svg>
+            </div>
+            <figcaption><h3>Girafa</h3><p>O animal mais alto do planeta, que se alimenta de folhas de acácia.</p></figcaption>
+          </figure>
+
+          <figure class="animal">
+            <div class="pic" role="img" aria-label="Desenho de um elefante">
+              <svg viewBox="0 0 200 160" aria-hidden="true">
+                <circle cx="52" cy="70" r="40" fill="#7d8e84"/><circle cx="52" cy="70" r="28" fill="#a7b6ad"/>
+                <circle cx="108" cy="78" r="46" fill="#93a49a"/>
+                <path d="M126 96c28 6 40 22 34 50-2 8-14 8-14 0 4-18-4-26-26-26z" fill="#93a49a"/>
+                <path d="M138 116q10 4 14 8M136 124q10 4 14 8" stroke="#6f8077" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <circle cx="106" cy="68" r="5" fill="#101a14"/><circle cx="108" cy="66" r="1.6" fill="#fff"/>
+                <path d="M124 100c8 4 16 18 8 30" stroke="#f4efe0" stroke-width="7" fill="none" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <figcaption><h3>Elefante</h3><p>Maior animal terrestre, vive em grupos liderados pelas fêmeas mais velhas.</p></figcaption>
+          </figure>
+
+          <figure class="animal">
+            <div class="pic" role="img" aria-label="Desenho de uma arara-azul">
+              <svg viewBox="0 0 200 160" aria-hidden="true">
+                <rect x="40" y="148" width="130" height="8" rx="4" fill="#6b4a22"/>
+                <path d="M78 150c-30-30-20-90 18-110 38 8 50 60 22 110z" fill="#2754b8"/>
+                <path d="M96 40c10 40 6 76-8 108" stroke="#1b3f8f" stroke-width="5" fill="none"/>
+                <circle cx="96" cy="40" r="26" fill="#2f63cf"/>
+                <circle cx="92" cy="40" r="13" fill="#f2d24a"/>
+                <circle cx="90" cy="38" r="5" fill="#101a14"/><circle cx="92" cy="36" r="1.6" fill="#fff"/>
+                <path d="M104 26c20-6 34 6 28 22-6 6-14 4-18-4-2-6-6-10-10-18z" fill="#262626"/>
+                <path d="M104 26c8-2 14 2 16 6" stroke="#6b6b6b" stroke-width="2" fill="none"/>
+                <path d="M72 120l-10 28M96 128l4 22" stroke="#1b3f8f" stroke-width="6" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <figcaption><h3>Arara-azul</h3><p>Ave de grande porte, símbolo dos esforços de conservação no país.</p></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== BUSCA (Google Maps) =====================
+         Sem JavaScript, o formulário usa o método GET: ao clicar em buscar,
+         o navegador abre o endereço do Google Maps com o texto digitado.
+         O campo já vem com "zoológico perto de ": a pessoa só completa com
+         seu bairro ou cidade. target="_blank" abre em uma nova aba. -->
+    <section id="buscar">
+      <div class="wrap">
+        <h2>Encontre o mais próximo de você</h2>
+        <p class="lead">Complete com seu bairro, cidade ou endereço e clique em buscar. O Google Maps abre já pesquisando perto de você.</p>
+        <div class="panel">
+
+          <!-- Busca 1: zoológicos -->
+          <form class="busca" action="https://www.google.com/maps/search/" method="get" target="_blank">
+            <input type="hidden" name="api" value="1">
+            <div class="field">
+              <label for="q-zoo">Zoológicos perto de você</label>
+              <input id="q-zoo" type="text" name="query" value="zoológico perto de " required>
+              <span class="hint">Exemplo: zoológico perto de Asa Sul, Brasília</span>
+            </div>
+            <div><button class="btn" type="submit">Buscar zoológicos no Google Maps</button></div>
+          </form>
+
+          <!-- Busca 2: lojas de animais -->
+          <form class="busca" action="https://www.google.com/maps/search/" method="get" target="_blank">
+            <input type="hidden" name="api" value="1">
+            <div class="field">
+              <label for="q-pet">Lojas de animais perto de você</label>
+              <input id="q-pet" type="text" name="query" value="loja de animais perto de " required>
+              <span class="hint">Exemplo: loja de animais perto de Centro, Curitiba</span>
+            </div>
+            <div><button class="btn" type="submit">Buscar lojas de animais no Google Maps</button></div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== AGENDAMENTO ===================== -->
+    <section id="agendar" style="background: var(--soft)">
+      <div class="wrap">
+        <h2>Agende sua visita</h2>
+        <p class="lead">Preencha os dados abaixo. O valor é de R$ 30,00 por pessoa em qualquer unidade.</p>
+        <div class="panel">
+
+          <!-- Tabela de preços: como não há JavaScript, o total não é calculado
+               na tela. Esta tabela mostra o valor para cada quantidade. -->
+          <table class="tabela">
+            <caption style="text-align:left;font-family:var(--font-title);font-weight:800;color:var(--forest);padding-bottom:8px">Quanto custa</caption>
+            <tr><th>Pessoas</th><th>Total</th></tr>
+            <tr><td>1</td><td>R$ 30,00</td></tr>
+            <tr><td>2</td><td>R$ 60,00</td></tr>
+            <tr><td>3</td><td>R$ 90,00</td></tr>
+            <tr><td>4</td><td>R$ 120,00</td></tr>
+            <tr><td>5</td><td>R$ 150,00</td></tr>
+          </table>
+
+          <!-- Formulário. O atributo "required" faz o navegador exigir o preenchimento.
+               Troque SEU-EMAIL@exemplo.com pelo e-mail que vai receber os agendamentos. -->
+          <form action="mailto:SEU-EMAIL@exemplo.com" method="post" enctype="text/plain">
+            <div class="row">
+              <div class="field">
+                <label for="nome">Nome completo</label>
+                <input id="nome" name="Nome" type="text" required placeholder="Seu nome">
+              </div>
+              <div class="field">
+                <label for="unidade">Unidade</label>
+                <select id="unidade" name="Unidade" required>
+                  <option>São Paulo – SP</option><option>Rio de Janeiro – RJ</option><option>Belo Horizonte – MG</option>
+                  <option>Brasília – DF</option><option>Salvador – BA</option><option>Fortaleza – CE</option>
+                  <option>Recife – PE</option><option>Curitiba – PR</option><option>Porto Alegre – RS</option>
+                  <option>Manaus – AM</option><option>Belém – PA</option><option>Goiânia – GO</option>
+                  <option>Florianópolis – SC</option><option>Campo Grande – MS</option><option>Cuiabá – MT</option>
+                  <option>Vitória – ES</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="field">
+                <label for="data">Data da visita</label>
+                <input id="data" name="Data" type="date" required>
+              </div>
+              <div class="field">
+                <label for="horario">Horário</label>
+                <select id="horario" name="Horario">
+                  <option>09:00</option><option>10:30</option><option>13:00</option><option selected>14:30</option><option>16:00</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="pessoas">Pessoas e valor total</label>
+                <select id="pessoas" name="Pessoas">
+                  <option>1 pessoa – R$ 30,00</option>
+                  <option selected>2 pessoas – R$ 60,00</option>
+                  <option>3 pessoas – R$ 90,00</option>
+                  <option>4 pessoas – R$ 120,00</option>
+                  <option>5 pessoas – R$ 150,00</option>
+                  <option>6 pessoas – R$ 180,00</option>
+                  <option>7 pessoas – R$ 210,00</option>
+                  <option>8 pessoas – R$ 240,00</option>
+                  <option>9 pessoas – R$ 270,00</option>
+                  <option>10 pessoas – R$ 300,00</option>
+                </select>
+              </div>
+            </div>
+            <div><button class="btn" type="submit">Enviar agendamento</button></div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== RODAPÉ ===================== -->
+  <footer>
+    <div class="wrap stack">
+      <h3>Zoo Verde Brasil</h3>
+      <p>Ingresso único de R$ 30,00 por pessoa em todas as unidades. Crianças até 12 anos devem estar acompanhadas por um adulto.</p>
+      <p>Site de demonstração: a rede, as unidades e os horários são fictícios.</p>
+    </div>
+  </footer>
+</body>
+</html>
